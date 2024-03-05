@@ -28,6 +28,55 @@ class Channel:
         self.channel_view_count = channel['items'][0]['statistics']['viewCount']
         self.youtube = build('youtube', 'v3', developerKey=self.api_key)
 
+
+    def __str__(self) -> str:
+        """возвращает строковое представление канала"""
+        return f"{self.channel_name}, ({self.channel_link})"
+
+
+    def __add__(self, other) -> int:
+        """возвращает сумму подписчиков двух каналов"""
+        return self.subscriberCount + other.subscriberCount
+
+
+    def __sub__(self, other) -> int:
+        """возвращает разницу подписчиков двух каналов"""
+        return self.subscriberCount - other.subscriberCount
+
+
+    def __sub__(self, other) -> int:
+        """возвращает разницу подписчиков двух каналов"""
+        return self.subscriberCount - other.subscriberCount
+
+
+    def __gt__(self, other) -> bool:
+        """возвращает True, если количество подписчиков текущего
+         канала больше, чем у другого"""
+        return self.subscriberCount > other.subscriberCount
+
+
+    def __ge__(self, other) -> bool:
+        """возвращает True, если количество подписчиков текущего
+         канала больше или равно, чем у другого"""
+        return self.subscriberCount >= other.subscriberCount
+
+
+    def __lt__(self, other)-> bool:
+        """возвращает True, если количество подписчиков текущего
+         канала меньше чем у другого"""
+        return self.subscriberCount < other.subscriberCount
+
+
+    def __le__(self, other) -> bool:
+        """возвращает True, если количество подписчиков текущего
+         канала меньше или равно, чем у другого"""
+        return self.subscriberCount <= other.subscriberCount
+
+    def __eq__(self, other) -> bool:
+        """возвращает True, если количество подписчиков текущего
+         канала равно, чем у другого"""
+        return self.subscriberCount == other.subscriberCount
+
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
         self.channel = self.get_service().channels().list(id=self.__channel_id, part='snippet,statistics').execute()
