@@ -16,11 +16,53 @@ class Channel:
         """Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API."""
         self.__channel_id = channel_id
         self.youtube = build('youtube', 'v3', developerKey=self.api_key)
-        #self.sub_count = int(self.channel_id['items'][0]['statistics']['subscriberCount'])
         self.channel_data = self.youtube.channels().list(id=self.__channel_id, part='snippet,statistics').execute()
+        self.sub_count = int(self.channel_data['items'][0]['statistics']['subscriberCount'])
         self.video_count = self.channel_data['items'][0]['statistics']['viewCount']
         self.url = f'https://www.youtube.com/channel/{self.channel_data["items"][0]["id"]}'
 
+    def __str__(self) -> str:
+        """возвращает строковое представление канала"""
+        return f"{self.title}, ({self.channel_id})"
+
+
+    def __add__(self, other) -> int:
+        """возвращает сумму подписчиков двух каналов"""
+        return self.sub_count + other.sub_count
+
+
+    def __sub__(self, other)-> int:
+        """возвращает разницу подписчиков двух каналов"""
+        return self.sub_count - other.sub_count
+
+
+    def __gt__(self, other) -> bool:
+        """возвращает True, если количество подписчиков текущего
+         канала больше, чем у другого"""
+        return self.sub_count > other.sub_count
+
+
+    def __ge__(self, other) -> bool:
+        """возвращает True, если количество подписчиков текущего
+         канала больше или равно, чем у другого"""
+        return self.sub_count >= other.sub_count
+
+
+    def __lt__(self, other) -> bool:
+        """возвращает True, если количество подписчиков текущего
+         канала меньше чем у другого"""
+        return self.sub_count < other.sub_count
+
+
+    def __le__(self, other) -> bool:
+        """возвращает True, если количество подписчиков текущего
+         канала меньше или равно, чем у другого"""
+        return self.sub_count <= other.sub_count
+
+    def __eq__(self, other) -> bool:
+        """возвращает True, если количество подписчиков текущего
+         канала равно, чем у другого"""
+        return self.sub_count == other.sub_count
 
     @classmethod
     def get_service(cls):
