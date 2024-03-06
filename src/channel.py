@@ -23,7 +23,7 @@ class Channel:
         self.channel_name = channel['items'][0]['snippet']['title']
         self.channel_desc = channel['items'][0]['snippet']['description']
         self.channel_link = f'https://www.youtube.com/channel/{channel["items"][0]["id"]}'
-        self.channel_sub_count = channel['items'][0]['statistics']['subscriberCount']
+        self.channel_sub_count = int(channel['items'][0]['statistics']['channel_sub_count'])
         self.channel_video_count = channel['items'][0]['statistics']['videoCount']
         self.channel_view_count = channel['items'][0]['statistics']['viewCount']
         self.youtube = build('youtube', 'v3', developerKey=self.api_key)
@@ -36,46 +36,46 @@ class Channel:
 
     def __add__(self, other) -> int:
         """возвращает сумму подписчиков двух каналов"""
-        return self.subscriberCount + other.subscriberCount
+        return self.channel_sub_count + other.channel_sub_count
 
 
     def __sub__(self, other) -> int:
         """возвращает разницу подписчиков двух каналов"""
-        return self.subscriberCount - other.subscriberCount
+        return self.channel_sub_count - other.channel_sub_count
 
 
     def __sub__(self, other) -> int:
         """возвращает разницу подписчиков двух каналов"""
-        return self.subscriberCount - other.subscriberCount
+        return self.channel_sub_count - other.channel_sub_count
 
 
     def __gt__(self, other) -> bool:
         """возвращает True, если количество подписчиков текущего
          канала больше, чем у другого"""
-        return self.subscriberCount > other.subscriberCount
+        return self.channel_sub_count > other.channel_sub_count
 
 
     def __ge__(self, other) -> bool:
         """возвращает True, если количество подписчиков текущего
          канала больше или равно, чем у другого"""
-        return self.subscriberCount >= other.subscriberCount
+        return self.channel_sub_count >= other.channel_sub_count
 
 
     def __lt__(self, other)-> bool:
         """возвращает True, если количество подписчиков текущего
          канала меньше чем у другого"""
-        return self.subscriberCount < other.subscriberCount
+        return self.channel_sub_count < other.channel_sub_count
 
 
     def __le__(self, other) -> bool:
         """возвращает True, если количество подписчиков текущего
          канала меньше или равно, чем у другого"""
-        return self.subscriberCount <= other.subscriberCount
+        return self.channel_sub_count <= other.channel_sub_count
 
     def __eq__(self, other) -> bool:
         """возвращает True, если количество подписчиков текущего
          канала равно, чем у другого"""
-        return self.subscriberCount == other.subscriberCount
+        return self.channel_sub_count == other.channel_sub_count
 
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
