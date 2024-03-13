@@ -1,6 +1,5 @@
 import os
 from dotenv import load_dotenv
-
 from googleapiclient.discovery import build
 import datetime
 
@@ -46,7 +45,7 @@ class PlayList:
                 total_duration += datetime.timedelta(seconds=duration)
         return total_duration
 
-    def video_response(self) -> dict:
+    def video_response(self) -> None:
         """если информации в словаре нет возвращает информацию о плейлисте"""
         if self.video_response is None:
             self.video_response = self.youtube.videos().list(part='contentDetails,statistics',
@@ -83,3 +82,4 @@ class PlayList:
                 more_viewed = view_count
                 self.right_id = video_id
         return "https://youtu.be/{self.right_id}"
+
