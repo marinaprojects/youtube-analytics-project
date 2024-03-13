@@ -1,8 +1,8 @@
 import os
-from dotenv import load_dotenv
-from googleapiclient.discovery import build
 import datetime
 
+from dotenv import load_dotenv
+from googleapiclient.discovery import build
 
 load_dotenv()
 
@@ -14,17 +14,16 @@ class PlayList:
     youtube = build('youtube', 'v3', developerKey=api_key)
 
     def __init__(self, playlist_id: str):
+        self.right_id = None
         self.playlist_id = playlist_id
-        # Здесь должна быть логика для получения данных о плейлисте, таких как название и ссылка
+        # Здесь должна быть логика для получения данных о плейлисте, таких, как название и ссылка
         self.url = f"https://www.youtube.com/playlist?list=" + self.playlist_id
-        self.playlist_data: dict = None
-        self.video_response: dict = None
+        self.playlist_data = None
+        self.video_response = None
         self.title = None
         #self.title: str = self.playlist_data()['items'][0]['snippet']['title']
         # получить все id видеороликов из плейлиста
         self.video_ids = []
-
-
 
     def playlist_response(self) -> None:
         """если информации в словаре нет, возвращает информацию о плейлисте"""
@@ -82,4 +81,3 @@ class PlayList:
                 more_viewed = view_count
                 self.right_id = video_id
         return "https://youtu.be/{self.right_id}"
-
