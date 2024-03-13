@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.10"
 build = "^1.0.3"
 isodate = "^0.6.1"
+self = "^2020.12.3"
 
 
 [build-system]
